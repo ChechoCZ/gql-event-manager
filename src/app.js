@@ -2,7 +2,9 @@ const express = require('express');
 const graphqlHttp = require('express-graphql');
 const { buildSchema } = require('graphql');
 
-const events = [];
+const Event = require('./app/models/event');
+
+require('./database');
 
 class App {
   constructor() {
@@ -45,22 +47,20 @@ class App {
         }
       `),
       rootValue: {
-        events: () => {
+        events: async () => {
+          const events = await Event.find();
+
           return events;
         },
-        createEvent: ({ eventInput }) => {
-          const _id = Math.random().toString()
+        createEvent: async ({ eventInput }) => {
           const { title, description, price, date } = eventInput;
 
-          const event = {
-            _id,
+          const event = await Event.create({
             title,
             description,
             price: +price,
             date
-          }
-
-          events.push(event);
+          });
 
           return event;
         }

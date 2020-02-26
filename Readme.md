@@ -5,6 +5,8 @@ This app intends to put basic GraphQL knowledge into practice by creating an API
  - Express.js
  - GraphQL
  - express-graphql
+ - MongoDB
+ - Mongoose
  
 ### How to run:
 First you need to install all the project dependencies by using **yarn** or **npm**. To do so, just type:
